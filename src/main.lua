@@ -52,6 +52,7 @@ local function combat(player, zombies)
         --the main loop
         --display
         printBreak()
+        io.write("\n--Foes--\n")
         for k,v in pairs(zombies) do
             io.write( "Shambler " .. k .. "=> " .. v:txt() .. "\n\n" )
         end
@@ -92,7 +93,7 @@ local function combat(player, zombies)
             end
             if v:isDead() then
                 if v:willDrop() then 
-                    io.write("\nShambler " .. k .. " Drops: ")
+                    io.write("\nAs it dies, Shambler " .. k .. " drops: ")
                     placeItem(player,v.drop)
                 end
                 zombies[k] = nil
@@ -178,11 +179,19 @@ function gameLoop(player,sr,genZombies,genMerch)
         io.write("BEGIN!\n")
         --/animation
         if not combat(player, genZombies(r)) then --GEN Z'S MAY NEED MORE ARGS
+            --defeat message
             io.write("\nYOU ARE DEAD. Your sponsor is ashamed.")
             return false
+        else
+            --victory message
+            if math.random(2)==1 then
+                io.write("\nThe crowd cheers")
+            else
+                io.write("\nYour Sponsor smiles")
+            end
+            io.write("; you have survived the round.")
         end
         --insert inventory manip?
-        ---[[
         if r~=sr then --don't need to buy gear after killed all z's
             local e = genMerch(r,player.dust)
             if e then
@@ -190,7 +199,6 @@ function gameLoop(player,sr,genZombies,genMerch)
                 merch(player,e)
             end
         end
-        --]]
         --insert inventory manip?
     end
     return true

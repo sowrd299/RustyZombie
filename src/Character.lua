@@ -41,11 +41,12 @@ function Character:getDxt()
 end
 
 function Character:txt()
-    local t = ""
+    local t = "--Equipement--\n"
     --returns a string representation of the character
     for k,v in pairs(self.slots) do
         if self.equiped[v] then t = t .. k .. "=> " .. self.equiped[v]:txt() .. "\n" end
     end
+    t = t .. "--Stats--\n"
     t = t .. "Hit Priorities " .. HitsText(self) .. "\n"
     t = t .. self.dust .. " Dust, "
     t = t .. self:getPackCount() .. "/" .. self.bpSize .. " Items in Pack, "
