@@ -198,6 +198,7 @@ end
 
 function main()
     --start the game
+    textScroll("Opening.txt")
     if gameLoop(genPlayer(),3,genZsWithTutorial,genMerch) then io.write("\nVICTORY! Your sponsor is proud of you.") end
     io.read() --wait to close
 end
