@@ -21,6 +21,8 @@ local function loadKwargs(arg)
             r[t[i]] = tonumber(t[i+1])
         end
     end
+    return r
+end
 
 local eFormat = { nil, nil, tonumber, function(line) return ParseCsvLine(line,".") end, loadKwargs } 
 local sFormat = { nil, nil, tonumber, tonumber, loadKwargs } 
