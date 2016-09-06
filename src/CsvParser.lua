@@ -53,7 +53,7 @@ function ParseCSV(path,sep,com,qt,verbose)
     if verbose then print("Begining...") end
     for line in io.lines(path) do
         if verbose then print("Checking next line...") end
-        if string.sub(line,1,string.len(com)-1) ~= com then --if the line is not a comment
+        if string.sub(line,1,string.len(com)) ~= com then --if the line is not a comment
             if verbose then print("Reading next line...") end
             table.insert(r,ParseCsvLine(line,sep,qt,verbose))
         end

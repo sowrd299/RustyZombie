@@ -32,11 +32,12 @@ function CsvConstruct(path,class,format)
     --DO MATH TO SEE IF CsvConstructObj APPROACH WOULD BE FASTER
     local t = ParseCSV(path)
     --testing
-    print(#t .. " lines parsed from csv")
+    --print(#t .. " lines parsed from csv")
+    --/testing
     local r = {}
     for i=1,#t do
         --testing
-        print("adding item " .. i .. " to array.")
+        --print("adding item " .. i .. " to array.")
         --/testing
         r[i] = constructObj(t[i],class,format)
     end

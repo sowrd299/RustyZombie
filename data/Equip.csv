@@ -1,2 +1,5 @@
+--name,slot,cost,hpr,kwargs.vals
+--armor
 Dermal Implants,chest,40,20.20.10.10.10
-Bladed Pistol,off,20,40.20,atk."5,1"
+--weapons
+Bladed Pistol,off,20,40.20,atk."5,1,rng.1.rngPen.-3"
