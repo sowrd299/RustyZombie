@@ -16,6 +16,7 @@ local function loadKwargs(arg)
     for i=1,#t,2 do
         --special kwargs
         if t[i] == "atk" then
+            r[t[i]] = CsvConstructObj(t[i+1],Attack,{tonumber,tonumber,loadKwargs})
         else
         --default case
             r[t[i]] = tonumber(t[i+1])

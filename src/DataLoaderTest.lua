@@ -3,4 +3,8 @@
 require "EquipDataLoader"
 
 local t = LoadEquipData("../data/Equip.csv")
-io.write(t[1]:txt())
+for i=1,#t do
+    io.write("\n")
+    if t[i] then io.write(t[i]:txt())
+    else io.write("nil") end
+end
