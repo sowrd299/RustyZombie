@@ -17,7 +17,8 @@ function ParseCsvLine(line,sep,qt,verbose)
         if verbose then print("Checking char " .. i .. "; Marker is at " .. p) end
         if i == string.len(line)+1 --if it is the end
                 or (not qtd and string.sub(line,i,i) == sep) --or a comma outside a quote
-                or (qtd and string.sub(line,i,i) == qt and string.sub(line,i+1,i+1) == sep) then --or a quote followed by a comma
+                or (qtd and string.sub(line,i,i) == qt and (string.sub(line,i+1,i+1) == sep or i == string.len line)) then
+                    --or a quote followed by a comma or line end
             local t = string.sub(line,p,i-1)
             if verbose then print("Adding value: " .. t) end
             table.insert(r,t or "")
