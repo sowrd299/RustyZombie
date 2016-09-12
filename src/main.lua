@@ -2,11 +2,12 @@
 --maybe probably should be multiple files
 
 require "Zombie"
-require "Equip"
 require "Attack"
 require "Character"
 require "Spell"
 require "Tools"
+
+require "GenMerch"
 
 local function placeItem(player, e)
     --Characters player
@@ -87,9 +88,15 @@ local function combat(player, zombies)
         --upkeep
         for k,v in pairs(zombies) do
             v:turn()
+            if v:isDead() then
+                --if died from causes other then exploding
+                io.write("\nYou have slain Shambler " .. k)
+                io.read() --wait for player end
+            end
             if v:isExploding() then
-               io.write("\nShambler " .. k .. " Explodes.")
-               v:explode(player)
+                io.write("\nShambler " .. k .. " Explodes.")
+                v:explode(player)
+                io.read() --wait for player
             end
             if v:isDead() then
                 if v:willDrop() then 
@@ -98,7 +105,7 @@ local function combat(player, zombies)
                 end
                 zombies[k] = nil
                 zCount = zCount - 1 --decriment number of z's
-                if zCount <= 0 then return true end
+                if zCount <= 0 then return not player:isDead() end
             end
         end
         player:turn()
@@ -144,27 +151,6 @@ local function genZsWithTutorial(r)
     return genZombies(r)
 end
 
-local function genMerch(r,dust)
-    --number r,dust
-    --returns an item to be sold durring given round with given max cost
-    --TESTING
-    local e = nil
-    if r>=2 and dust>=20 then
-        if math.random(2)==1 then
-            local a = Attack:new(5,1,{rng=2,rngPen=-3})
-            e = Equip:new("Electric Flail", "main", 20, {50,40,30}, {atk=a})
-        else
-            local a = Attack:new(2,2,{rng=2,rngPen=2})
-            e = Equip:new("Machine Rifle", "main", 20, {40,40},  {atk=a})
-        end
-    elseif dust>=10 then
-        local a = Attack:new(2,2)
-        e = Equip:new("Machine Pistol", "main", 10, {40,20}, {atk=a})
-    end
-    return e
-    --/TESTING
-end 
-
 function gameLoop(player,sr,genZombies,genMerch)
     --Character player
     --number sr ("sigma rounds")
@@ -193,7 +179,7 @@ function gameLoop(player,sr,genZombies,genMerch)
         end
         --insert inventory manip?
         if r~=sr then --don't need to buy gear after killed all z's
-            local e = genMerch(r,player.dust)
+            local e = genMerch(r,player.dust,sr)
             if e then
                 printBreak()
                 merch(player,e)
@@ -207,7 +193,7 @@ end
 function main()
     --start the game
     textScroll("../data/Opening.txt")
-    if gameLoop(genPlayer(),3,genZsWithTutorial,genMerch) then io.write("\nVICTORY! Your sponsor is proud of you.") end
+    if gameLoop(genPlayer(),3,genZsWithTutorial,GenMerch) then io.write("\nVICTORY! Your sponsor is proud of you.") end
     io.read() --wait to close
 end
 

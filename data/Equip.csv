@@ -1,5 +1,7 @@
 --name,slot,cost,hpr,kwargs.vals
---armor
-Dermal Implants,chest,40,20.20.10.10.10
---weapons
+--in order of sophistication
+Machine Pistol,main,10,40.20,atk."2,2"
 Bladed Pistol,off,20,40.20,atk."5,1,rng.1.rngPen.-3"
+Electric Flail,main,25,50.40.30,atk."5,1,rng.2.rngPen.-3"
+Machine Rifle,main,20,40.40,atk."2,2,rng.2.rngPen.2"
+Dermal Implants,chest,40,20.20.10.10.10

@@ -25,7 +25,17 @@ local function loadKwargs(arg)
     return r
 end
 
-local eFormat = { nil, nil, tonumber, function(line) return ParseCsvLine(line,".") end, loadKwargs } 
+function loadHPR(line)
+    --string line
+    --returns the line, parsed to number[]
+    local r = ParseCsvLine(line,".") 
+    for i=1,#r do
+        r[i] = tonumber(r[i])
+    end
+    return r
+end
+
+local eFormat = { nil, nil, tonumber, loadHPR, loadKwargs } 
 local sFormat = { nil, nil, tonumber, tonumber, loadKwargs } 
 
 function LoadEquipData(path)
