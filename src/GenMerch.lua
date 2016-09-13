@@ -14,15 +14,16 @@ function GenMerch(r,dust,sr)
     sr = sr -1 --account that will never receive item on last round
     local s = lenEqs * r / (sr) --index of item to return 
     local step = lenEqs / sr
-    --testing
+    --[[testing
     print("\n\nlenEqs = " .. lenEqs)
     print("s = " .. s)
     print("step = " .. step)
-    --/testing
+    --/testing]]
     s = math.ceil(s - (step > 1 and (math.random(step) - 1) or 0)) --if more then 1 item per stage randomize which used
-    --testing
+    step = math.floor(step)
+    --[[testing
     print("s adjusted = " .. s)
-    --/testing
+    --/testing]]
     --DOUBLE CHECK ALL INDEXES REACHIBLE
     while eqs[s].cost > dust and s > 1 do
         if s > step then
