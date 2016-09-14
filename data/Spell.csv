@@ -1,0 +1,4 @@
+--name,slot,value,copies,kwargs
+Twinkle,"off",20,1
+Fireball,"off",10,1,atk."0,2,dot.1"
+Bolt of Madness,"off",5,2,atk."1,1,dot.1"

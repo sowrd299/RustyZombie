@@ -4,16 +4,18 @@ if not EquipDataLoader then require "EquipDataLoader" end
 
 local eqDataPath = "../data/Equip.csv"
 local eqs = LoadEquipData(eqDataPath)
-local lenEqs = #eqs --stored for speed, assumes eqs const
 
-function GenMerch(r,dust,sr)
+function GenMerch(r,dust,sr,items)
     --number r,dust,sr
-    --returns an item to be sold during the rth of sr rounds
+    --Equip[] items
+    --returns an item from the set to be used during the rth of sr rounds
     --with given max cost
     --return nil if no candidate found
+    items = items or eqs --defaults to preloaded set of equipment
+    local lenItems = #items
     sr = sr -1 --account that will never receive item on last round
-    local s = lenEqs * r / (sr) --index of item to return 
-    local step = lenEqs / sr
+    local s = lenItems * r / (sr) --index of item to return 
+    local step = lenItems / sr
     s = math.ceil(s - (step > 1 and (math.random(step) - 1) or 0)) --if more then 1 item per stage randomize which used
     step = math.floor(step)
     while eqs[s]:getVal() > dust and s > 1 do

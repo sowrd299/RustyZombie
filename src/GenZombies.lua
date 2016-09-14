@@ -4,6 +4,28 @@ if not EquipDataLoader then require "EquipDataLoader" end
 if not GenMerch then require "GernMerch" end
 if not Zombie then require "Zombie" end
 
+local spDataPath = "../data/Spell.csv"
+local sps = LoadEquipData(spDataPath)
+
+local function genZombie(l,t,sr,copies)
+    --number l
+    --number[3] t
+    --Spell sp
+    --returns a Zombie[copies] of identical "level" l zombies 
+    --with stats at ratios given by t (the last stat being max spell value)
+    --that drops the given spell
+    local args = {}
+    for i=1,#t do
+        args[i] = math.floor(l*t)
+    end
+    arg[4] = GenMerch(l,arg[4],sr,sps)
+    local r = {}
+    for i=1,copies do
+        r[i] = Zombie:new(unpack(args)) 
+    end
+    return r 
+end
+
 local function genZombies(r)
     --number r
     --returns a group of zombies for the r'th round
