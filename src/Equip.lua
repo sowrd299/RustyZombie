@@ -26,7 +26,7 @@ function Equip:new (name, slot, cost, hpr, kwargs)
     return e
 end
 
-function Equip:txt ()
+function Equip:txt()
     --returns a text representation of the item
     local t = self.name .. " " .. HitsText(self) .. " "
     t = t .. "(" .. self.slot .. ")" .. "\n"
@@ -42,4 +42,12 @@ end
 
 function Equip:isDead()
     return IsDead(self)
+end
+
+function Equip:getVal()
+    --returns the "worth" of the item
+    --defaults to 0
+    if self.cost then return self.cost end
+    if self.value then return self.value end
+    return 0
 end

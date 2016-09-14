@@ -8,6 +8,7 @@ require "Spell"
 require "Tools"
 
 require "GenMerch"
+require "GenZombies"
 
 local function placeItem(player, e)
     --Characters player
@@ -126,31 +127,6 @@ local function genPlayer()
     return p
 end
 
-local function genZombies(r)
-    --number r
-    --returns a group of zombies for the r'th round
-    --CURRENT ALGORYTHM FOR TESTING ONLY
-    local a = Attack:new(0, 2, { dot = 1 })
-    local s = Spell:new("Fireball", "off", 10, 1, {atk=a})
-    local zs = {} 
-    for i=1,r do
-        table.insert(zs,Zombie:new(i*2,i,i,s))
-    end
-    return zs
-end
-
-local function genZsWithTutorial(r)
-    --number are
-    --wrapper for genZombies that allows for unqiue 1st round
-    if r==1 then
-        local s = Spell:new("Twinkle", "off", 20, 1)
-        local z = Zombie:new(4,4,1,s)
-        local zo = Zombie:new(6,1,1,s) --teach how damage works
-        return {z,zo}
-    end
-    return genZombies(r)
-end
-
 function gameLoop(player,sr,genZombies,genMerch)
     --Character player
     --number sr ("sigma rounds")
@@ -193,7 +169,7 @@ end
 function main()
     --start the game
     textScroll("../data/Opening.txt")
-    if gameLoop(genPlayer(),3,genZsWithTutorial,GenMerch) then io.write("\nVICTORY! Your sponsor is proud of you.") end
+    if gameLoop(genPlayer(),3,GenZsWithTutorial,GenMerch) then io.write("\nVICTORY! Your sponsor is proud of you.") end
     io.read() --wait to close
 end
 

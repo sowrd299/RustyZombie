@@ -14,25 +14,16 @@ function GenMerch(r,dust,sr)
     sr = sr -1 --account that will never receive item on last round
     local s = lenEqs * r / (sr) --index of item to return 
     local step = lenEqs / sr
-    --[[testing
-    print("\n\nlenEqs = " .. lenEqs)
-    print("s = " .. s)
-    print("step = " .. step)
-    --/testing]]
     s = math.ceil(s - (step > 1 and (math.random(step) - 1) or 0)) --if more then 1 item per stage randomize which used
     step = math.floor(step)
-    --[[testing
-    print("s adjusted = " .. s)
-    --/testing]]
-    --DOUBLE CHECK ALL INDEXES REACHIBLE
-    while eqs[s].cost > dust and s > 1 do
+    while eqs[s]:getVal() > dust and s > 1 do
         if s > step then
             s = s - step
         else
             s = s - 1
         end
     end
-    if eqs[s].cost <= dust then
+    if eqs[s]:getVal() <= dust then
         return eqs[s]
     else
         return nil
@@ -43,7 +34,7 @@ function HGenMerch(r,dust)
     --number r,dust
     --returns an item to be sold durring given round with given max cost
     --uses a primitive Hard coded algorithm
-    --TESTING
+    --included for legacy
     local e = nil
     if r>=2 and dust>=20 then
         if math.random(2)==1 then
@@ -58,6 +49,5 @@ function HGenMerch(r,dust)
         e = Equip:new("Machine Pistol", "main", 10, {40,20}, {atk=a})
     end
     return e
-    --/TESTING
 end 
 

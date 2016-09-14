@@ -17,9 +17,6 @@ function Spell:new(name, slot, value, count, kwargs)
 end
 
 function Spell:txt()
-    --testing
-    --print("USING SPELL TXT")
-    --/testing
     return Spell.__index.txt(self) .. self.count .. " Copies\n"
 end
 
